@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { OrderComponent } from './order/order.component';
-
+import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 
 @NgModule({
@@ -19,7 +19,9 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     MatListModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

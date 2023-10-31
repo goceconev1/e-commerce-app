@@ -9,10 +9,12 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-
   products: Product[] = [];
+  sortedProducts: Product[] = [];
+  sortBy: string = '';
+  filterText: string = '';
 
-  constructor(private productService: ProductService,private router:Router) {} // Replace with your service
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
     this.getProducts();
@@ -21,10 +23,30 @@ export class ProductListComponent implements OnInit {
   getProducts() {
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
+      this.applySortingAndFiltering();
     });
   }
+
+
+  applySortingAndFiltering() {
+    this.sortedProducts = [...this.products];
+    if (this.sortBy === 'price-low-to-high') {
+      this.sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (this.sortBy === 'price-high-to-low') {
+      this.sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    this.sortedProducts = this.sortedProducts.filter(product =>
+      product.name.toLowerCase().includes(this.filterText.toLowerCase())
+    );
+  }
+
+
+  changeSorting() {
+    this.applySortingAndFiltering();
+  }
+
   viewProductDetails(productId: number) {
-    // Navigate to the product detail page with the product's ID
     this.router.navigate(['/product', productId]);
   }
 }

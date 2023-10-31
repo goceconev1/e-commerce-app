@@ -20,7 +20,7 @@ export class ProductService {
   ];
 
   getProducts(): Observable<Product[]> {
-    // Simulate an HTTP request to retrieve product data
+
     return of(this.products);
   }
 
